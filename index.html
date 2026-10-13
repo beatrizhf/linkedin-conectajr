@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1B1B30">
+    <meta name="description" content="Conheça a equipe ConectaJr e acesse nossos perfis no LinkedIn.">
+    <title>ConectaJr | Nossa equipe</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="pagina">
+        <header class="acoes-topo">
+            <button class="botao-icone" id="copiar-link" type="button" aria-label="Copiar link da página" title="Copiar link">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="8" y="8" width="13" height="13" rx="2"></rect>
+                    <path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"></path>
+                </svg>
+            </button>
+
+            <button class="botao-icone" id="compartilhar-link" type="button" aria-label="Compartilhar link da página" title="Compartilhar">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="18" cy="5" r="3"></circle>
+                    <circle cx="6" cy="12" r="3"></circle>
+                    <circle cx="18" cy="19" r="3"></circle>
+                    <path d="m8.7 10.6 6.6-4.2M8.7 13.4l6.6 4.2"></path>
+                </svg>
+            </button>
+        </header>
+
+        <section class="apresentacao">
+            <div class="logo">
+                <img src="img/logo_conectajr.png" alt="Logo ConectaJr">
+            </div>
+
+            <h1>ConectaJr</h1>
+
+            <p>
+                Compartilhe esse link para acessar mais tarde,
+                conheça o LinkedIn da nossa equipe e acesse o nosso projeto!
+            </p>
+        </section>
+
+        <section class="equipe" aria-labelledby="titulo-equipe">
+            <h2 id="titulo-equipe">LinkedIn</h2>
+
+            <div class="lista-integrantes">
+                <a class="integrante" href="https://www.linkedin.com/in/brenda-melo-b4479140b/" target="_blank" rel="noopener noreferrer">
+                    <img src="img/perfil_brenda.png" alt="Foto de Brenda Melo">
+                    <span class="dados-integrante">
+                        <strong>Brenda Melo</strong>
+                        <small>desenvolvedora front-end</small>
+                    </span>
+                    <span class="seta" aria-hidden="true">↗</span>
+                </a>
+
+                <a class="integrante" href="https://www.linkedin.com/in/gregorydossantos/" target="_blank" rel="noopener noreferrer">
+                    <img src="img/perfil_gregory.png" alt="Foto de Gregory dos Santos">
+                    <span class="dados-integrante">
+                        <strong>Gregory dos Santos</strong>
+                        <small>desenvolvedor front-end</small>
+                    </span>
+                    <span class="seta" aria-hidden="true">↗</span>
+                </a>
+
+                <a class="integrante" href="https://www.linkedin.com/in/rafael-vin%C3%ADcius-da-rocha/" target="_blank" rel="noopener noreferrer">
+                    <img src="img/perfil_rafael.png" alt="Foto de Rafael Vinícius">
+                    <span class="dados-integrante">
+                        <strong>Rafael Vinícius</strong>
+                        <small>designer e desenvolvedor front-end</small>
+                    </span>
+                    <span class="seta" aria-hidden="true">↗</span>
+                </a>
+
+                <a class="integrante" href="https://www.linkedin.com/in/beatriz-haiana-86096b278/" target="_blank" rel="noopener noreferrer">
+                    <img src="img/perfil_beatriz.png" alt="Foto de Beatriz Haiana">
+                    <span class="dados-integrante">
+                        <strong>Beatriz Haiana</strong>
+                        <small>designer e desenvolvedora front-end</small>
+                    </span>
+                    <span class="seta" aria-hidden="true">↗</span>
+                </a>
+
+                <a class="integrante" href="https://www.linkedin.com/in/digo312/" target="_blank" rel="noopener noreferrer">
+                    <img src="img/perfil_rodrigo.png" alt="Foto de Rodrigo de Souza">
+                    <span class="dados-integrante">
+                        <strong>Rodrigo de Souza</strong>
+                        <small>desenvolvedor front-end</small>
+                    </span>
+                    <span class="seta" aria-hidden="true">↗</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="projeto">
+            <a class="link-projeto" href="https://conectajr.vercel.app/" target="_blank" rel="noopener noreferrer">
+                ConectaJr <span aria-hidden="true">↗</span>
+            </a>
+
+            <a class="imagem-projeto" href="https://conectajr.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Visitar o projeto ConectaJr">
+                <img src="img/projeto.png" alt="Prévia da plataforma ConectaJr">
+                <span class="legenda-projeto">Conheça nosso projeto ↗</span>
+            </a>
+        </section>
+
+        <p class="mensagem" id="mensagem" role="status" aria-live="polite"></p>
+    </main>
+
+    <script>
+        const LINK = 'https://linkedin-conectajr.vercel.app/';
+
+        const botaoCopiar = document.querySelector('#copiar-link');
+        const botaoCompartilhar = document.querySelector('#compartilhar-link');
+        const mensagem = document.querySelector('#mensagem');
+
+        async function copiarLink() {
+            try {
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(LINK);
+                } else {
+                    const campo = document.createElement('textarea');
+                    campo.value = LINK;
+                    campo.setAttribute('readonly', '');
+                    campo.style.position = 'fixed';
+                    campo.style.top = '0';
+                    campo.style.left = '-9999px';
+                    document.body.appendChild(campo);
+                    campo.select();
+
+                    const sucesso = document.execCommand('copy');
+                    campo.remove();
+
+                    if (!sucesso) {
+                        throw new Error('Não foi possível copiar');
+                    }
+
+                    botaoCopiar.classList.add('copiado');
+
+                    setTimeout(() => {
+                     botaoCopiar.classList.remove('copiado');
+                    }, 1500);
+                }
+
+                botaoCopiar.classList.add('copiado');
+
+                mensagem.textContent = 'Link copiado com sucesso!';
+            } catch {
+                mensagem.textContent = 'Não foi possível copiar automaticamente. Link: ' + LINK;
+            }
+        }
+
+        botaoCopiar.addEventListener('click', copiarLink);
+
+        botaoCompartilhar.addEventListener('click', async () => {
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'ConectaJr',
+                        text: 'Conheça a equipe ConectaJr e acesse nossos perfis!',
+                        url: LINK
+                    });
+                } catch (erro) {
+                    if (erro.name !== 'AbortError') {
+                        mensagem.textContent = 'Não foi possível compartilhar. Tente copiar o link.';
+                    }
+                }
+            } else {
+                await copiarLink();
+            }
+        });
+    </script>
+</body>
+</html>
